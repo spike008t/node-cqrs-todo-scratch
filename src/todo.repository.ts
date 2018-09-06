@@ -3,7 +3,7 @@ import { TodoCreatedEvent } from "./event";
 
 export class TodoRepository implements TodoRepositoryInterface {
 
-  private readonly _entries: TodoInterface[] = [];
+  private readonly _entries: Map<string, TodoInterface> = new Map();
 
   constructor(
     private readonly _eventStore: EventStoreInterface,
@@ -12,34 +12,20 @@ export class TodoRepository implements TodoRepositoryInterface {
   }
 
   add(item: TodoInterface): string {
-    item.id = `${this._entries.length}`;
-    this._entries.push(item);
-    console.log(`total entry: ${this._entries.length}`);
-    return item.id;
+    this._entries.set(item.uuid, item);
+    return item.uuid;
   }
 
-  delete() {
-
+  delete(uuid: string) {
+    this._entries.delete(uuid);
   }
 
-  has(id: string) {
-    if (isNaN(parseInt(id, 10)) === false) {
-      const idx = parseInt(id, 10);
-      if (idx >= 0 && idx < this._entries.length) {
-        return true;
-      }
-    }
-    return false;
+  has(uuid: string) {
+    return this._entries.has(uuid);
   }
 
-  get(id: string) {
-    if (isNaN(parseInt(id, 10)) === false) {
-      const idx = parseInt(id, 10);
-      if (idx >= 0 && idx < this._entries.length) {
-        return this._entries[idx];
-      }
-    }
-    return undefined;
+  get(uuid: string) {
+    return this._entries.get(uuid);
   }
 
   getAll() {

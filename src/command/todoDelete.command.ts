@@ -5,7 +5,7 @@ export const TODO_DELETE_COMMAND = 'TODO_DELETE_COMMAND';
 export class TodoDeleteCommand implements CommandInterface {
 
   constructor(
-    readonly id: string,
+    readonly uuid: string,
   ) {
   }
 
@@ -22,10 +22,10 @@ export class TodoDeleteCommandHandler implements CommandHandlerInterface {
   }
 
   handle(command: TodoDeleteCommand) {
-    console.debug(`[DELETE] ${command.id}`);
-    const entry = this._todoRepository.get(command.id)
+    console.debug(`[DELETE] ${command.uuid}`);
+    const entry = this._todoRepository.get(command.uuid)
     if (entry) {
-      this._todoRepository.delete
+      this._todoRepository.delete(command.uuid);
     }
   }
 

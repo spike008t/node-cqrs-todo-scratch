@@ -1,6 +1,6 @@
 
 export interface TodoInterface {
-  id?: string;
+  uuid: string;
   label?: string;
   state?: string;
   createdAt?: Date;

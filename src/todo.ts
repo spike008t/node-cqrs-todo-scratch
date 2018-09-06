@@ -1,18 +1,25 @@
-import { TodoInterface, AggregateRootInterface, EventInterface } from "./interface";
+import { TodoInterface, AggregateRootInterface, EventInterface, AggregateRootAbstract } from "./interface";
 
-
-export class Todo implements TodoInterface, AggregateRootInterface {
-
-  id?: string;
+export class Todo extends AggregateRootAbstract {
+  uuid: string;
   label?: string;
   state?: string;
   createdAt?: Date;
   updatedAt?: Date;
 
-  constructor() {
-  }
+  constructor(
+    _uuid: string,
+    _label?: string,
+    _state?: string,
+    _createdAt?: Date,
+    _updatedAt?: Date,
+  ) {
+    super();
 
-  apply(event: EventInterface) {
-
+    this.uuid = _uuid;
+    this.label = _label;
+    this.state = _state;
+    this.createdAt = _createdAt;
+    this.updatedAt = _updatedAt;
   }
 }

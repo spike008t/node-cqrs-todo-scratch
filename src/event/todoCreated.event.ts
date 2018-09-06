@@ -25,11 +25,9 @@ export class TodoCreatedEventHandler implements EventHandlerInterface {
   handle(event: TodoCreatedEvent) {
     console.log('TodoCreatedEventHandler');
 
-    const entry = new Todo();
-    entry.label = event.data.label;
-    entry.createdAt = event.data.createdAt;
-    entry.updatedAt = event.data.updatedAt;
-
+    const entry = new Todo(event.data.uuid, event.data.label, event.data.state, event.data.createdAt, event.data.updatedAt);
+    // entry.createdAt = event.data.createdAt;
+    // entry.updatedAt = event.data.updatedAt;
     this._todoRepository.add(entry);
   }
 
